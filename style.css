@@ -42,9 +42,10 @@
 .display-name {
     font-family: "Open Sans";
     color: rgb(243 242 242);
+    text-align: center;
 }
 
-.fab {
+.fab, .fa {
     padding: 20px;
     font-size: 30px;
     width: 30px;
@@ -53,7 +54,7 @@
     border-radius: 50%;
   }
   
-.fab:hover {
+.fab:hover, fa.hover {
 opacity: 0.7;
 }
 
@@ -63,13 +64,23 @@ opacity: 0.7;
   }
   
 .fa-linkedin {
-background: #55ACEE;
-color: white;
+    background: #55ACEE;
+    color: white;
 }
 
 .fa-github {
-background: #6e40c9;
-color: white;
+    background: #6e40c9;
+    color: white;
+}
+
+.fa-file-pdf {
+    background: #c24039;
+    color: white;
+}
+
+.fa-envelope {
+    background: #ea4335;
+    color: white;
 }
 
 .social {
