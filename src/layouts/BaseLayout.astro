@@ -7,19 +7,41 @@ import MainHead from '../components/MainHead.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
+import Particles from "astro-particles";
+import particleBackground  from "./ParticleBackground";
+
+
 interface Props {
 	title?: string | undefined;
 	description?: string | undefined;
 }
 
 const { title, description } = Astro.props;
+
+
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
 ---
 
 <html lang="en">
 	<head>
 		<MainHead title={title} description={description} />
 	</head>
-	<body>
+	
+	<script>
+		import { tsParticles } from "tsparticles-engine";
+		import { loadFull } from "tsparticles";
+
+		(async () => {
+			await loadFull(tsParticles);
+		})();
+
+	</script>
+
+  <Particles id="tsparticles" options={particleBackground[randomIntFromInterval(0,2)]} style={{position: 'absolute'}}/>
+	
+  <body>
 		<div class="stack backgrounds">
 			<Nav />
 			<slot />
@@ -29,12 +51,13 @@ const { title, description } = Astro.props;
 		<script>
 			// Add “loaded” class once the document has completely loaded.
 			addEventListener('load', () => document.documentElement.classList.add('loaded'));
+
 		</script>
 
 		<style>
 			:root {
 				--_placeholder-bg: linear-gradient(transparent, transparent);
-				--bg-image-main: url('/assets/backgrounds/bg-main-light-800w.jpg');
+				/* --bg-image-main: url('/assets/backgrounds/bg-main-light-800w.jpg'); */
 				--bg-image-main-curves: url('/assets/backgrounds/bg-main-light.svg');
 				--bg-image-subtle-1: var(--_placeholder-bg);
 				--bg-image-subtle-2: var(--_placeholder-bg);
@@ -76,6 +99,10 @@ const { title, description } = Astro.props;
 					--bg-image-main: url('/assets/backgrounds/bg-main-dark-1440w.jpg');
 				}
 
+				:root.theme-dark .backgrounds {
+					background: rgb(0 0 0 / 82%);
+				}
+
 				:root.loaded {
 					--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-light-1440w.jpg');
 					--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-light-1440w.jpg');
@@ -89,6 +116,10 @@ const { title, description } = Astro.props;
 			}
 
 			.backgrounds {
+        margin-top: -180px;
+      }
+      
+      .backgrounds-old  {
 				min-height: 100%;
 				isolation: isolate;
 				background:
@@ -109,5 +140,7 @@ const { title, description } = Astro.props;
 				}
 			}
 		</style>
+
 	</body>
+	
 </html>
